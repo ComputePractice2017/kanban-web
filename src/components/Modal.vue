@@ -19,10 +19,11 @@
 
           <div class="modal-footer">
             <slot name="footer">
-            </slot>
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
+              Footer
+              <button @click="$emit('close')">
+                Close
               </button>
+            </slot>
           </div>
         </div>
       </div>
@@ -77,10 +78,6 @@ export default {
 
 .modal-body {
   margin: 20px 0;
-}
-
-.modal-default-button {
-  float: right;
 }
 
 /*

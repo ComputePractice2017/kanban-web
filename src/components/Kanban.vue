@@ -1,33 +1,41 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <ul>
-      <li v-for="task in tasks">
-        Name: {{ task.name }}
-        <br>
-        Details: {{task.details}}
-      </li>
-    </ul>
-    <addtask-modal @taskSaved="handleNewTask"></addtask-modal>
+    <State v-for="state in states" :state=state key=state.name></State>
+    <addtask-modal @taskSaved="handleNewTask" :states=states></addtask-modal>
+    <addstate-modal @stateSaved="handleNewState"></addstate-modal>
   </div>
 </template>
 
 <script>
 import AddtaskModal from './AddTask'
+import AddstateModal from './AddState'
+import State from './State'
 
 export default {
   name: 'kanban',
   data () {
     return {
+      states: [],
       tasks: []
     }
   },
   components: {
-    AddtaskModal
+    'addtask-modal': AddtaskModal,
+    'addstate-modal': AddstateModal,
+    'State': State
   },
   methods: {
     handleNewTask: function (taskData) {
-      this.tasks.push(taskData)
+      let state = this.states.findIndex(s => s.name === taskData.state)
+      console.log(state)
+      if (state >= 0) {
+        this.states[state].tasks.push(taskData)
+      } else {
+        this.states.push({name: taskData.state, tasks: [taskData]})
+      }
+    },
+    handleNewState: function (stateData) {
+      this.states.push(stateData)
     }
   }
 }
