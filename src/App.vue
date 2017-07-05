@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <img src="./assets/logo.png">
+    <p>
+      <router-link to="/kanban">Go to Kanban</router-link>
+      <router-link to="/">Go to Hello</router-link>
+    </p>
     <router-view></router-view>
   </div>
 </template>
